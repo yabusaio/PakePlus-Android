@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private lateinit var gestureDetector: GestureDetectorCompat
+    private lateinit var btnBack: View
+    private lateinit var btnHome: View
+
+    // 主页URL
+    private val homeUrl = "https://juejin.cn/"
 
     @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +56,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         webView = findViewById<WebView>(R.id.webview)
+        // 初始化按钮
+        btnBack = findViewById(R.id.btn_back)
+        btnHome = findViewById(R.id.btn_home)
 
         webView.settings.apply {
             javaScriptEnabled = true       // 启用JS
@@ -151,6 +159,17 @@ class MainActivity : AppCompatActivity() {
             webView.goBack()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    // 更新按钮可见性
+    private fun updateButtonVisibility() {
+        if (webView.url == homeUrl) {
+            btnBack.visibility = View.GONE
+            btnHome.visibility = View.GONE
+        } else {
+            btnBack.visibility = View.VISIBLE
+            btnHome.visibility = View.VISIBLE
         }
     }
 
